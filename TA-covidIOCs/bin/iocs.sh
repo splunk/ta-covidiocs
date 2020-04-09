@@ -18,9 +18,5 @@ wget --no-check-certificate https://raw.githubusercontent.com/COVID-19-CTI-LEAGU
 
 wget --no-check-certificate https://raw.githubusercontent.com/COVID-19-CTI-LEAGUE/PUBLIC_RELEASE/master/Cyber_Threat_coalition_ip_Blacklist.txt && tr -d '\r' < Cyber_Threat_coalition_ip_Blacklist.txt > ctileagueCOVIDips.csv && sed 's/$/,TRUE/' ctileagueCOVIDips.csv && echo 'url,isBad' | cat - ctileagueCOVIDips.csv > temp && mv -f temp ctileagueCOVIDips.csv  && rm -f Cyber_Threat_coalition_ip_Blacklist.txt*  && mv -f ctileagueCOVIDips.csv $SPLUNK_HOME/etc/apps/TA-covidIOCs/lookups/
 
-
-wget --no-check-certificate https://covid-public-domains.s3-us-west-1.amazonaws.com/list.txt && tr -d '\r' < list.txt > covid-public-domains.csv && sed 's/$/,TRUE/' covid-public-domains.csv && echo 'date,type,domain,isBad' | cat - covid-public-domains.csv > temp && mv -f temp covid-public-domains.csv  && rm -f list.txt*  && mv -f covid-public-domains.csv $SPLUNK_HOME/etc/apps/TA-covidIOCs/lookups/
-
-
-
+#Special thanks to RiskIQ for this great list of IOCs as well: https://www.riskiq.com/blog/external-threat-management/discovering-unknowns-investigating-threats-covid19/
 wget --no-check-certificate https://covid-public-domains.s3-us-west-1.amazonaws.com/list.txt && tr -d '\r' < list.txt > covid-public-domains.csv && sed '1,1d' covid-public-domains.csv &&sed 's/$/,TRUE/' covid-public-domains.csv && echo 'date,type,domain,isBad' | cat - covid-public-domains.csv > temp && mv -f temp covid-public-domains.csv  && rm -f list.txt*  && mv -f covid-public-domains.csv $SPLUNK_HOME/etc/apps/TA-covidIOCs/lookups/

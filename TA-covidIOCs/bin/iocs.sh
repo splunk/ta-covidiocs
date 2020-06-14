@@ -20,4 +20,6 @@ wget --no-check-certificate https://raw.githubusercontent.com/COVID-19-CTI-LEAGU
 
 #Special thanks to RiskIQ for this great list of IOCs as well: https://www.riskiq.com/blog/external-threat-management/discovering-unknowns-investigating-threats-covid19/
 wget --no-check-certificate https://covid-public-domains.s3-us-west-1.amazonaws.com/list.txt && tr -d '\r' < list.txt > covid-public-domains.csv && sed '1,1d' covid-public-domains.csv &&sed 's/$/,TRUE/' covid-public-domains.csv && echo 'date,type,domain,isBad' | cat - covid-public-domains.csv > temp && mv -f temp covid-public-domains.csv  && rm -f list.txt*  && mv -f covid-public-domains.csv $SPLUNK_HOME/etc/apps/TA-covidIOCs/lookups/
-q
+
+#Newest fun stuff from Domaintools included
+wget --no-check-certificate https://covid-19-threat-list.domaintools.com/dt-covid-19-threat-list.csv.gz && gunzip dt-covid-19-threat-list.csv.gz && tr '\t' , < dt-covid-19-threat-list.csv > domaintools-covid-19-threat-list.csv && sed 's/$/,TRUE/' domaintools-covid-19-threat-list.csv  > ddomaintools-covid-19-threat-list.csv && echo 'domain,date,proximity,isBad' | cat - ddomaintools-covid-19-threat-list.csv > temp && mv -f temp ddomaintools-covid-19-threat-list.csv  && mv -f ddomaintools-covid-19-threat-list.csv $SPLUNK_HOME/etc/apps/TA-covidIOCs/lookups/domaintools-covid-19-threat-list.csv && rm -f *.csv 
